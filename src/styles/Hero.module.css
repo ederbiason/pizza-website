@@ -39,3 +39,77 @@
 .btn {
     padding: 1rem 2.5rem;
 }
+
+.rightSide {
+    position: relative;
+}
+
+.imageContainer {
+    width: 38rem;
+    position: absolute;
+    top: -5rem;
+    left: -5rem;
+}
+
+.contactUs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: max-content;
+    padding: 1rem;
+    border-radius: 5rem;
+    top: 6rem;
+    right: -5rem;
+    gap: 1rem;
+    background-color: white;
+    box-shadow: var(--shadow);
+    color: var(--themeRed);
+}
+
+.contactUs>div {
+    background: rgb(59 208 59);
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contactUs:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.pizzaNotification {
+    display: flex;
+    gap: 1rem;
+    background-color: white;
+    box-shadow: var(--shadow);
+    padding: .5rem;
+    border-radius: .5rem;
+    position: absolute;
+    bottom: 4rem;
+    left: 19rem;
+    width: max-content;
+}
+
+.pizzaNotification>:nth-child(1) {
+    width: 6rem;
+    height: 4rem;
+    overflow: hidden;
+    border-radius: .5rem;
+}
+
+.pizzaNotification>:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.pizzaNotification:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
