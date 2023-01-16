@@ -3,6 +3,7 @@ import { PizzaType } from "../@types/pizzaType"
 
 import { urlFor } from '../lib/client';
 import Image from 'next/legacy/image';
+import Link from 'next/link';
 
 interface MenuProps {
     pizzasData: PizzaType
@@ -27,18 +28,20 @@ export const Menu = ({pizzasData}: MenuProps) => {
                             key={id}
                             className={css.pizza}
                         >
-                            <div className={css.imageWrapper}>
-                                <Image
-                                    loader={() => src}
-                                    src={src}
-                                    alt="image of a flavor of pizza"
-                                    objectFit='cover'
-                                    layout='fill'
-                                />
-                            </div>
+                            <Link href={`./pizza/${pizza.slug.current}`}>
+                                <div className={css.imageWrapper}>
+                                    <Image
+                                        loader={() => src}
+                                        src={src}
+                                        alt="image of a flavor of pizza"
+                                        objectFit='cover'
+                                        layout='fill'
+                                    />
+                                </div>
+                            </Link>
 
                             <span>{pizza.name}</span>
-                            
+
                             <span>
                                 <span style={{color: 'var(--themeRed)'}}>$</span> {pizza.price[1]}
                             </span>
