@@ -2,13 +2,12 @@ import { GetStaticProps } from "next";
 import { PizzaType } from "../@types/pizzaType";
 import { Hero } from "../components/Hero";
 import { Layout } from "../components/Layout";
+import { Menu } from "../components/Menu";
 import { Services } from "../components/Services";
 import { client } from "../lib/client";
 import css from '../styles/Home.module.css'
 
 export default function Home(pizzas: PizzaType) {
-
-  console.log(pizzas)
 
   return (
     <>
@@ -17,6 +16,7 @@ export default function Home(pizzas: PizzaType) {
           <main>
             <Hero />
             <Services />
+            <Menu pizzasData={pizzas} />
           </main>
         </div>
       </Layout>
