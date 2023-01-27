@@ -1,18 +1,19 @@
 import css from '../../styles/PizzaPage.module.css'
-import { GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import Image from "next/legacy/image"
 import { ParsedUrlQuery } from "querystring"
 import { Pizza, Slug } from "../../@types/pizzaType"
 import { Layout } from "../../components/Layout"
 import { client, urlFor } from "../../lib/client"
+import toast, { Toaster } from 'react-hot-toast'
 
 import LeftArrow from '../../assets/arrowLeft.png';
 import RightArrow from '../../assets/arrowRight.png';
 import { useState } from 'react'
+import { useStore } from '../../store/store'
 
-const PizzaPage = (pizza: Pizza) => {
-    // console.log(pizza)
-
+function PizzaPage(pizza: Pizza) {
+    console.log(pizza)
     const [size, setSize] = useState<number>(1)
     const [quantity, setQuantity] = useState<number>(1)
 
@@ -22,6 +23,20 @@ const PizzaPage = (pizza: Pizza) => {
         : quantity === 1 
         ? null 
         : setQuantity((prev) => prev - 1)
+    }
+
+    if (typeof pizza === 'undefined') return ( <h1>Loading</h1> )
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const addPizza = useStore((state: any) => state.addPizza)
+    const addToCart = () => {
+        addPizza({
+            ...pizza, 
+            price: pizza.price,
+            quantity: quantity,
+            size: size
+        })
+        toast.success("Added to Cart")
     }
 
     return (
@@ -92,13 +107,15 @@ const PizzaPage = (pizza: Pizza) => {
                         </div>
                     </div>
 
-                    <div className={`btn ${css.btn}`}>
+                    <div 
+                        className={`btn ${css.btn}`}
+                        onClick={addToCart}
+                    >
                         Add to Cart
                     </div>
                 </div>
+                <Toaster />
             </div>
-
-
         </Layout>
     )
 }
@@ -109,8 +126,8 @@ export const getStaticPaths = async () => {
     )
 
     return {
-        paths: paths.map((slug: Slug) => ({ params: { slug } })),
-        fallback: 'blocking',
+        paths: paths.map((slug: Slug) => {  return { params: { slug } }  }),
+        fallback: true,
     }
 }
 
@@ -123,6 +140,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const pizza = await client.fetch(
         `*[_type=="pizza" && slug.current == '${slug}'][0]`
     )
+
     return {
         props: {
             pizza

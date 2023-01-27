@@ -21,7 +21,6 @@ export const Menu = ({pizzasData}: MenuProps) => {
 
             <div className={css.menu}>
                 {pizzas.map((pizza, id) => {
-                    console.log(pizza)
                     const src = urlFor(pizza.image).url()
                     return (
                         <div

@@ -2,8 +2,14 @@ import Image from 'next/image'
 import css from '../styles/Header.module.css'
 import Logo from '../assets/Logo.png'
 import { ShoppingBag } from 'phosphor-react'
+import { useStore } from '../store/store'
 
 export const Header = () => {
+    const state = useStore((state) => state)
+    console.log(state)
+
+    const items = useStore((state: any) => state.cart.pizzas.length)
+
     return (
         <div className={css.header}>
             <div className={css.logo}>
@@ -22,7 +28,7 @@ export const Header = () => {
                     <ShoppingBag size={32} color="#2E2E2E" />
 
                     <div className={css.badge}>
-                        1
+                        {items}
                     </div>
                 </div>
             </div>
