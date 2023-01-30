@@ -50,7 +50,7 @@ function PizzaPage(pizza: PizzaProps) {
     const addToCart = () => {
         addPizza({
             ...pizza.pizza, 
-            price: pizza.pizza.price,
+            price: pizza.pizza.price[size],
             quantity: quantity,
             size: size
         })

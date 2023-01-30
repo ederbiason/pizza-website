@@ -11,7 +11,7 @@ export const useStore = create(
         addPizza: (data: any) =>
         set((state: any) => ({
             cart: {
-                pizzas: [...state.cart.pizza, data]
+                pizzas: [...state.cart.pizzas, data]
             }
         }))
     })
