@@ -19,7 +19,8 @@ type State = {
     cart: {
         pizzas: PizzaCardProps[]
     },
-    addPizza: (pizza: PizzaCardProps) => void
+    addPizza: (pizza: PizzaCardProps) => void,
+    removePizza: (index: number) => void
 }
 
 export const useStore = create<State>((set) => ({
@@ -33,6 +34,15 @@ export const useStore = create<State>((set) => ({
         set((state) => ({
             cart: {
                 pizzas: [...state.cart.pizzas, data]
+            }
+        }))
+    },
+
+    // remove pizza
+    removePizza: (index) => {
+        set((state) => ({
+            cart: {
+                pizzas: state.cart.pizzas.filter((_, i) => i != index)
             }
         }))
     }
