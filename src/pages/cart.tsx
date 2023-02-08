@@ -13,13 +13,15 @@ export default function Cart() {
         <div className={css.details}>
           <table className={css.table}>
             <thead>
-              <th>Pizza</th>
-              <th>Name</th>
-              <th>Size</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
-              <th></th>
+              <tr>
+                <th>Pizza</th>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
             </thead>
 
             <tbody className={css.tbody}>
