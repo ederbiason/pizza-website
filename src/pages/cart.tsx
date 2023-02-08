@@ -14,6 +14,8 @@ export default function Cart() {
     toast.error('Item Removed')
   }
 
+  const total = () => CartData.pizzas.reduce((a, b) => a+b.quantity * Number(b.price), 0) 
+
   return (
     <Layout>
       <div className={css.container}>
@@ -66,7 +68,7 @@ export default function Cart() {
                         </td>
 
                         <td>
-                          {pizza.price}
+                          $ {pizza.price}
                         </td>
 
                         <td>
@@ -74,7 +76,7 @@ export default function Cart() {
                         </td>
 
                         <td>
-                          {Number(pizza.price) * pizza.quantity}
+                          $ {Number(pizza.price) * pizza.quantity}
                         </td>
 
                         <button
@@ -93,7 +95,28 @@ export default function Cart() {
         </div>
 
         <div className={css.cart}>
-                
+          <span>Cart</span>
+
+          <div className={css.cartDetails}>
+            <div>
+              <span>Items</span>
+              <span> {CartData.pizzas.length}</span>
+            </div>
+            <div>
+              <span>Total</span>
+              <span>$ {total()}</span>
+            </div>
+          </div>
+
+          <div className={css.buttons}>
+              <button className='btn'>
+                Pay on Delivery
+              </button>
+
+              <button className='btn'>
+                Pay Now
+              </button>
+          </div>
         </div>
       </div>
 
