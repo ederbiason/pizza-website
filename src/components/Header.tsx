@@ -3,6 +3,7 @@ import css from '../styles/Header.module.css'
 import Logo from '../assets/Logo.png'
 import { ShoppingBag } from 'phosphor-react'
 import { useStore } from '../store/store'
+import Link from 'next/link'
 
 export const Header = () => {
     const state = useStore((state) => state)
@@ -24,13 +25,14 @@ export const Header = () => {
             </ul>
 
             <div className={css.rightSide}>
-                <div className={css.cart}>
-                    <ShoppingBag size={32} color="#2E2E2E" />
-
-                    <div className={css.badge}>
-                        {items}
+                <Link href='/cart'>
+                    <div className={css.cart}>
+                        <ShoppingBag size={32} color="#2E2E2E" />
+                        <div className={css.badge}>
+                            {items}
+                        </div>
                     </div>
-                </div>
+                </Link>
             </div>
         </div>
     )

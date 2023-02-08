@@ -2,7 +2,7 @@ import css from '../../styles/PizzaPage.module.css'
 import { GetStaticPaths, GetStaticProps } from "next"
 import Image from "next/legacy/image"
 import { ParsedUrlQuery } from "querystring"
-import { Slug } from "../../@types/pizzaType"
+import { Pizza, Slug } from "../../@types/pizzaType"
 import { Layout } from "../../components/Layout"
 import { client, urlFor } from "../../lib/client"
 import toast, { Toaster } from 'react-hot-toast'
@@ -12,7 +12,7 @@ import RightArrow from '../../assets/arrowRight.png';
 import { useState } from 'react'
 import { useStore } from '../../store/store'
 
-interface PizzaProps {
+export type PizzaProps = {
     pizza: {
         image: {
             _type: string
@@ -24,13 +24,15 @@ interface PizzaProps {
         name: string
         details: string
         price: number[]
+        size: number
+        quantity: number
     }
 }
 
-function PizzaPage(pizza: PizzaProps) {
-    console.log(pizza)
+function PizzaPage({ pizza }: PizzaProps) {
+    //console.log(pizza)
 
-    const src = urlFor(pizza.pizza.image).url()
+    const src = urlFor(pizza.image).url()
 
     const [size, setSize] = useState<number>(1)
     const [quantity, setQuantity] = useState<number>(1)
@@ -49,8 +51,8 @@ function PizzaPage(pizza: PizzaProps) {
     const addPizza = useStore((state: any) => state.addPizza)
     const addToCart = () => {
         addPizza({
-            ...pizza.pizza, 
-            price: pizza.pizza.price[size],
+            ...pizza, 
+            price: pizza.price[size],
             quantity: quantity,
             size: size
         })
@@ -72,11 +74,11 @@ function PizzaPage(pizza: PizzaProps) {
                 </div>
 
                 <div className={css.right}>
-                    <span>{pizza.pizza.name}</span>
-                    <span>{pizza.pizza.details}</span>
+                    <span>{pizza.name}</span>
+                    <span>{pizza.details}</span>
 
                     <span>
-                        <span style={{color: 'var(--themeRed)'}}>$</span> {pizza.pizza.price[size]}
+                        <span style={{color: 'var(--themeRed)'}}>$</span> {pizza.price[size]}
                     </span>
 
                     <div className={css.size}>
@@ -161,7 +163,7 @@ interface IParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
     const { slug } = context.params as IParams
-    const pizza = await client.fetch(
+    const pizza: Pizza = await client.fetch(
         `*[_type == "pizza" && slug.current == '${slug}'][0]`,
     )
 

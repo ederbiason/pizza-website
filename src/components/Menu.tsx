@@ -1,5 +1,5 @@
 import css from '../styles/Menu.module.css'
-import { PizzaType } from "../@types/pizzaType"
+import { PizzaType, Pizza } from "../@types/pizzaType"
 import { urlFor } from '../lib/client';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ interface MenuProps {
     pizzasData: PizzaType
 }
 
-export const Menu = ({pizzasData}: MenuProps) => {
+export const Menu = ({ pizzasData }: MenuProps) => {
     const { pizzas } = pizzasData;
 
     return (
