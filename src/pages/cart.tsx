@@ -1,25 +1,8 @@
 import css from '../styles/Cart.module.css'
-import { useStore } from '../store/store'
+import { PizzaCardProps, useStore } from '../store/store'
 import { Layout } from "../components/Layout";
-import { PizzaProps } from './pizza/[slug]';
 import Image from 'next/legacy/image';
 import { urlFor } from '../lib/client';
-import { Pizza } from '../@types/pizzaType';
-
-interface PizzaCardProps {
-  image: {
-    _type: string
-    asset: {
-      _ref: string
-      _type: string
-    }
-  }
-  name: string
-  details: string
-  price: number[]
-  size: number
-  quantity: number
-}
 
 export default function Cart() {
   const CartData = useStore((state: any) => state.cart)
