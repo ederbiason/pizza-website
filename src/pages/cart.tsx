@@ -4,10 +4,14 @@ import { Layout } from "../components/Layout";
 import Image from 'next/legacy/image';
 import { urlFor } from '../lib/client';
 import toast, { Toaster } from 'react-hot-toast';
+import { useState } from 'react';
+import { OrderModal } from '../components/OrderModal';
 
 export default function Cart() {
   const CartData = useStore((state) => state.cart)
   const removePizza = useStore((state) => state.removePizza)
+
+  const [PaymentMethod, setPaymentMethod] = useState<number | null>(null)
 
   function handleRemove(index: number) {
     removePizza(index)
@@ -15,6 +19,11 @@ export default function Cart() {
   }
 
   const total = () => CartData.pizzas.reduce((a, b) => a+b.quantity * Number(b.price), 0) 
+
+  function handleOnDelivery() {
+    setPaymentMethod(0)
+    typeof window !== 'undefined' && localStorage.setItem('total', total().toString())
+  }
 
   return (
     <Layout>
@@ -109,11 +118,16 @@ export default function Cart() {
           </div>
 
           <div className={css.buttons}>
-              <button className='btn'>
+              <button 
+                className='btn'
+                onClick={handleOnDelivery}
+              >
                 Pay on Delivery
               </button>
 
-              <button className='btn'>
+              <button 
+                className='btn'
+              >
                 Pay Now
               </button>
           </div>
@@ -121,6 +135,12 @@ export default function Cart() {
       </div>
 
       <Toaster />
+
+      <OrderModal
+        opened={PaymentMethod === 0}
+        setOpened={setPaymentMethod}
+        PaymentMethod={PaymentMethod}
+      />
     </Layout>
   )
 }
