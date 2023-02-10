@@ -1,6 +1,6 @@
 import css from '../styles/OrderModal.module.css'
 import { Modal, useMantineTheme } from "@mantine/core"
-import { Dispatch, FormEvent, SetStateAction, useState } from "react"
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
 
 interface OrderModalProps {
     opened: boolean;
@@ -15,13 +15,15 @@ export function OrderModal({ opened, setOpened, PaymentMethod }: OrderModalProps
 
   const total = typeof window !== 'undefined' && localStorage.getItem('total')
 
-  function handleInput(e: FormEvent) {
-    setFormData({...FormData, [e.target.name]: e.target.value})
+  function handleInput(e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
+    const { name, value } = e.target 
+
+    setFormData({...formData, [name]: value})
   }
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    console.log(FormData)
+    console.log(formData)
   }
 
   return (
