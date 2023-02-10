@@ -18,7 +18,7 @@ export default function Cart() {
     toast.error('Item Removed')
   }
 
-  const total = () => CartData.pizzas.reduce((a, b) => a+b.quantity * Number(b.price), 0) 
+  const total = () => CartData.pizzas.reduce((a, b) => a + b.quantity * Number(b.price), 0)
 
   function handleOnDelivery() {
     setPaymentMethod(0)
@@ -45,57 +45,54 @@ export default function Cart() {
             <tbody className={css.tbody}>
               {CartData.pizzas.length > 0 &&
                 CartData.pizzas.map((pizza: PizzaCardProps, i: number) => {
-                  console.log(CartData)
                   const src = urlFor(pizza.image).url()
 
                   return (
-                    <>
-                      <tr key={i} className={css.infos}>
-                        <td className={css.imageTd}>
-                          <Image
-                            src={src}
-                            alt="image of a pizza"
-                            loader={() => src}
-                            objectFit="cover"
-                            width={85}
-                            height={85}
-                          />
-                        </td>
+                    <tr key={i} className={css.infos}>
+                      <td className={css.imageTd}>
+                        <Image
+                          src={src}
+                          alt="image of a pizza"
+                          loader={() => src}
+                          objectFit="cover"
+                          width={85}
+                          height={85}
+                        />
+                      </td>
 
-                        <td>
-                          {pizza.name}
-                        </td>
+                      <td>
+                        {pizza.name}
+                      </td>
 
-                        <td>
-                          {
-                            pizza.size === 0
-                              ? "Small"
-                              : pizza.size === 1
-                                ? "Medium"
-                                : "Large"
-                          }
-                        </td>
+                      <td>
+                        {
+                          pizza.size === 0
+                            ? "Small"
+                            : pizza.size === 1
+                              ? "Medium"
+                              : "Large"
+                        }
+                      </td>
 
-                        <td>
-                          $ {pizza.price}
-                        </td>
+                      <td>
+                        $ {pizza.price}
+                      </td>
 
-                        <td>
-                          {pizza.quantity}
-                        </td>
+                      <td>
+                        {pizza.quantity}
+                      </td>
 
-                        <td>
-                          $ {Number(pizza.price) * pizza.quantity}
-                        </td>
+                      <td>
+                        $ {Number(pizza.price) * pizza.quantity}
+                      </td>
 
-                        <button
-                          className={`btn ${css.removeButton}`}
-                          onClick={() => handleRemove(i)}
-                        >
-                          x
-                        </button>
-                      </tr>
-                    </>
+                      <td
+                        className={`btn ${css.removeButton}`}
+                        onClick={() => handleRemove(i)}
+                      >
+                        x
+                      </td>
+                    </tr>
                   )
                 })
               }
@@ -118,18 +115,18 @@ export default function Cart() {
           </div>
 
           <div className={css.buttons}>
-              <button 
-                className='btn'
-                onClick={handleOnDelivery}
-              >
-                Pay on Delivery
-              </button>
+            <button
+              className='btn'
+              onClick={handleOnDelivery}
+            >
+              Pay on Delivery
+            </button>
 
-              <button 
-                className='btn'
-              >
-                Pay Now
-              </button>
+            <button
+              className='btn'
+            >
+              Pay Now
+            </button>
           </div>
         </div>
       </div>

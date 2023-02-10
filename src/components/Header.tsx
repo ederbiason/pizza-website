@@ -7,7 +7,6 @@ import Link from 'next/link'
 
 export const Header = () => {
     const state = useStore((state) => state)
-    console.log(state)
 
     const items = useStore((state: any) => state.cart.pizzas.length)
 
