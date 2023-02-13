@@ -4,6 +4,7 @@ import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "reac
 import { createOrder } from '../lib/orderHandler';
 import { toast, Toaster } from 'react-hot-toast';
 import { useStore } from '../store/store';
+import { useRouter } from 'next/router';
 
 interface OrderModalProps {
     opened: boolean;
@@ -12,6 +13,8 @@ interface OrderModalProps {
 }
 
 export function OrderModal({ opened, setOpened, PaymentMethod }: OrderModalProps) {
+  const router = useRouter()
+
   const theme = useMantineTheme()
 
   const [formData, setFormData] = useState({})
@@ -36,6 +39,8 @@ export function OrderModal({ opened, setOpened, PaymentMethod }: OrderModalProps
     {
         typeof window !== 'undefined' && localStorage.setItem('order', id)
     }
+
+    router.push(`/order/${id}`)
   }
 
   return (
