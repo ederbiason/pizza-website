@@ -10,6 +10,7 @@ import Spinner from '../../assets/spinner.svg'
 
 import { Money, Package } from 'phosphor-react';
 import Image from 'next/legacy/image';
+import { useEffect } from 'react';
 
 interface IParams extends ParsedUrlQuery {
     id: string
@@ -45,7 +46,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 export default function Orders({order}: OrdersProps) {
-    console.log(order)
+    useEffect(() => {
+        if(order.status > 3) {
+            localStorage.clear()
+        }
+    }, [order])
+    
 
     return (
         <Layout>
