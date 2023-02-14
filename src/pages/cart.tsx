@@ -6,8 +6,11 @@ import { urlFor } from '../lib/client';
 import toast, { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
 import { OrderModal } from '../components/OrderModal';
+import { useRouter } from 'next/router';
 
 export default function Cart() {
+  const router = useRouter()
+
   const CartData = useStore((state) => state.cart)
   const removePizza = useStore((state) => state.removePizza)
 
@@ -23,6 +26,25 @@ export default function Cart() {
   function handleOnDelivery() {
     setPaymentMethod(0)
     typeof window !== 'undefined' && localStorage.setItem('total', total().toString())
+  }
+
+  async function handleCheckout() {
+    typeof window !== 'undefined' && localStorage.setItem('total', total().toString())
+    setPaymentMethod(1)
+
+    const response = await fetch('/api/stripe', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(CartData.pizzas)
+    })
+
+    if(response.status === 500) return 
+
+    const data = await response.json()
+    toast.loading("Redirecting...")
+    router.push(data.url)
   }
 
   return (
@@ -124,6 +146,7 @@ export default function Cart() {
 
             <button
               className='btn'
+              onClick={handleCheckout}
             >
               Pay Now
             </button>
