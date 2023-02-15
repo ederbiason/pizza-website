@@ -15,6 +15,9 @@ export default function Cart() {
   const removePizza = useStore((state) => state.removePizza)
 
   const [PaymentMethod, setPaymentMethod] = useState<number | null>(null)
+  const [order, setOrder] = useState(
+    typeof window !== 'undefined' && localStorage.getItem('order')
+  )
 
   function handleRemove(index: number) {
     removePizza(index)
@@ -40,7 +43,7 @@ export default function Cart() {
       body: JSON.stringify(CartData.pizzas)
     })
 
-    if(response.status === 500) return 
+    if (response.status === 500) return
 
     const data = await response.json()
     toast.loading("Redirecting...")
@@ -136,21 +139,27 @@ export default function Cart() {
             </div>
           </div>
 
-          <div className={css.buttons}>
-            <button
-              className='btn'
-              onClick={handleOnDelivery}
-            >
-              Pay on Delivery
-            </button>
+          {
+            !order && CartData.pizzas.length > 0 
+            ? (
+              <div className={css.buttons}>
+                <button
+                  className='btn'
+                  onClick={handleOnDelivery}
+                >
+                  Pay on Delivery
+                </button>
 
-            <button
-              className='btn'
-              onClick={handleCheckout}
-            >
-              Pay Now
-            </button>
-          </div>
+                <button
+                  className='btn'
+                  onClick={handleCheckout}
+                >
+                  Pay Now
+                </button>
+              </div>
+            )
+            : null
+          }
         </div>
       </div>
 
