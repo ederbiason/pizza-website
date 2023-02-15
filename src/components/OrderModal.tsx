@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 interface OrderModalProps {
     opened: boolean;
     PaymentMethod: number | null;
-    setOpened: Dispatch<SetStateAction<number | null>>
+    setOpened?: Dispatch<SetStateAction<number | null>>;
 }
 
 export function OrderModal({ opened, setOpened, PaymentMethod }: OrderModalProps) {
@@ -49,7 +49,7 @@ export function OrderModal({ opened, setOpened, PaymentMethod }: OrderModalProps
         overlayOpacity={0.55}
         overlayBlur={3}
         opened={opened}
-        onClose={() => setOpened(null)}
+        onClose={() => setOpened!(null)}
     >
         <form className={css.formContainer}>
             <input 
