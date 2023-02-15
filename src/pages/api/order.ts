@@ -2,20 +2,26 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { client } from '../../lib/client';
 
-type Data = {
-  msg: string
+interface DataProps {
+  _type: string;
+  name: string;
+  address: string;
+  phone: string;
+  total: number;
+  method: number;
+  status: number;
 }
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
   switch(req.method) {
     case "POST":
       const newOrder = await JSON.parse(req.body);
 
       try {
-        await client.create({
+        await client.create<DataProps>({
           _type: 'order',
           name: newOrder.name,
           address: newOrder.address,

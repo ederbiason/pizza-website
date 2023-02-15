@@ -2,7 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
 
 const stripe = new Stripe(
-    process.env.STRIPE_SECRET_KEY
+    `${process.env.STRIPE_SECRET_KEY}`,
+    {
+        apiVersion: '2022-11-15'
+    }
 )
 
 interface ItemProps {
@@ -24,7 +27,7 @@ export default async function handler(
 ) {
     if(req.method == 'POST') {
         try {
-            const params = {
+            const params: Stripe.Checkout.SessionCreateParams = {
                 submit_type: 'pay',
                 mode: "payment",
                 payment_method_types: ['card'],
