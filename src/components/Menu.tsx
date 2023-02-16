@@ -14,7 +14,7 @@ export const Menu = ({ pizzasData }: MenuProps) => {
     return (
         <div className={css.container}>
             <div className={css.heading}>
-                <span>OUR MENU</span>
+                <span id="menu">OUR MENU</span>
                 <span>Menu That Always</span>
                 <span>Make you Fall In Love</span>
             </div>

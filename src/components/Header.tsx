@@ -15,7 +15,7 @@ export const Header = () => {
 
     const state = useStore((state) => state)
 
-    const items = useStore((state: any) => state.cart.pizzas.length)
+    const items = useStore((state) => state.cart.pizzas.length)
 
     return (
         <div className={css.header}>
@@ -30,7 +30,7 @@ export const Header = () => {
                         Home
                     </Link>
                 </li>
-                <li>Menu</li>
+                <li><a href="#menu">Menu</a></li>
                 <li>Contact</li>
             </ul>
 
